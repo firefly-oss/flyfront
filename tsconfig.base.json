@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": false,
+    "target": "es2022",
+    "module": "preserve",
+    "lib": ["es2020", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@flyfront/core": ["libs/core/src/index.ts"],
+      "@flyfront/ui": ["libs/ui/src/index.ts"],
+      "@flyfront/auth": ["libs/auth/src/index.ts"],
+      "@flyfront/data-access": ["libs/data-access/src/index.ts"],
+      "@flyfront/state": ["libs/state/src/index.ts"],
+      "@flyfront/i18n": ["libs/i18n/src/index.ts"],
+      "@flyfront/testing": ["libs/testing/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
