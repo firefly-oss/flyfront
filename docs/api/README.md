@@ -75,7 +75,17 @@ import {
   MenuComponent,
   LoadingComponent,
   AppShellComponent,
+  // Layout Components
+  AuthLayoutComponent,
+  DashboardLayoutComponent,
+  CenteredLayoutComponent,
+  SplitLayoutComponent,
+  StackLayoutComponent,
+  PageLayoutComponent,
 } from '@flyfront/ui';
+
+// Layout Types
+import type { DashboardNavItem, DashboardBreadcrumbItem } from '@flyfront/ui';
 
 // Design tokens
 import { designTokens, colors, typography, spacing } from '@flyfront/ui';

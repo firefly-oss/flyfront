@@ -499,6 +499,7 @@ export * from './lib/components/menu/menu.component';
 // Layout Components
 export * from './lib/components/loading/loading.component';
 export * from './lib/components/app-shell/app-shell.component';
+export * from './lib/components/layouts/index';
 ```
 
 ### Design Tokens
@@ -633,7 +634,252 @@ A content container with optional header, content, and footer sections.
 | padding | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Content padding |
 | elevated | `boolean` | `false` | Adds shadow, removes border |
 | outlined | `boolean` | `true` | Shows border |
-| interactive | `boolean` | `false` | Adds hover effects |
+|| interactive | `boolean` | `false` | Adds hover effects |
+
+### Layout Components
+
+Flyfront provides 6 layout components for common page structures:
+
+#### AuthLayoutComponent
+
+A centered layout for authentication pages (login, register, password reset).
+
+```html
+<fly-auth-layout
+  logoUrl="/assets/logo.svg"
+  logoAlt="My App"
+  title="Sign In"
+  subtitle="Enter your credentials to continue"
+  maxWidth="sm"
+  [showPattern]="true"
+  [showFooter]="true"
+  copyrightText="© 2026 My Company"
+>
+  <fly-card>
+    <!-- Login form content -->
+  </fly-card>
+  
+  <div auth-footer>
+    <a href="/forgot-password">Forgot password?</a>
+  </div>
+</fly-auth-layout>
+```
+
+**Inputs:**
+
+- `logoUrl` - URL for the logo image
+- `logoAlt` - Alt text for the logo (default: `'Logo'`)
+- `title` - Page title displayed above content
+- `subtitle` - Subtitle text below title
+- `maxWidth` - Maximum content width: `'sm'` | `'md'` | `'lg'` (default: `'sm'`)
+- `showPattern` - Show background dot pattern (default: `true`)
+- `showFooter` - Show footer slot (default: `true`)
+- `copyrightText` - Copyright text for bottom footer
+- `background` - Background CSS classes (default: `'bg-gradient-to-br from-gray-50 to-gray-100'`)
+
+**Content Slots:**
+
+- Default slot - Main content area
+- `[auth-footer]` - Footer links slot
+
+#### DashboardLayoutComponent
+
+A full-featured admin dashboard layout with collapsible sidebar, header, breadcrumbs, and user menu.
+
+```html
+<fly-dashboard-layout
+  appName="Admin Panel"
+  [navItems]="navigation"
+  [breadcrumbs]="breadcrumbs"
+  [userName]="user.name"
+  [userAvatar]="user.avatar"
+  [showLogout]="true"
+  [showFooter]="true"
+  (navItemClick)="onNavClick($event)"
+  (logout)="onLogout()"
+>
+  <ng-container header-actions>
+    <fly-button variant="ghost">Notifications</fly-button>
+  </ng-container>
+  
+  <ng-container sidebar-footer>
+    <p class="text-sm text-gray-500">v1.0.0</p>
+  </ng-container>
+
+  <!-- Main content -->
+  <router-outlet />
+  
+  <div dashboard-footer>
+    <p>© 2026 My Company</p>
+  </div>
+</fly-dashboard-layout>
+```
+
+**Types:**
+
+```typescript
+interface DashboardNavItem {
+  id: string;
+  label: string;
+  icon?: string;        // HTML content for icon
+  link?: string;
+  active?: boolean;
+  disabled?: boolean;
+  badge?: string | number;
+  children?: DashboardNavItem[];
+}
+
+interface DashboardBreadcrumbItem {
+  label: string;
+  link?: string;
+}
+```
+
+**Inputs:**
+
+- `appName` - Application name (shown when no logo, default: `'Dashboard'`)
+- `logoUrl` - Logo image URL
+- `logoAlt` - Logo alt text (default: `'Logo'`)
+- `navItems` - Array of navigation items
+- `breadcrumbs` - Array of breadcrumb items
+- `userName` - User name for header
+- `userAvatar` - User avatar URL
+- `showLogout` - Show logout button (default: `true`)
+- `showFooter` - Show footer slot (default: `false`)
+- `showSidebarFooter` - Show sidebar footer slot (default: `false`)
+- `sidebarWidth` - Expanded sidebar width (default: `'16rem'`)
+- `sidebarCollapsedWidth` - Collapsed sidebar width (default: `'4rem'`)
+
+**Outputs:**
+
+- `navItemClick` - Emitted with `DashboardNavItem` when clicked
+- `logout` - Emitted when logout button clicked
+
+**Content Slots:**
+
+- Default slot - Main page content
+- `[header-actions]` - Header action buttons
+- `[sidebar-footer]` - Bottom of sidebar
+- `[dashboard-footer]` - Page footer
+
+#### CenteredLayoutComponent
+
+Centers content horizontally and optionally vertically. Useful for empty states, loading screens.
+
+```html
+<fly-centered-layout [fullHeight]="true" maxWidth="md" padding="lg">
+  <div class="text-center">
+    <h1>No items found</h1>
+    <p>Start by creating your first item.</p>
+    <fly-button variant="primary">Create Item</fly-button>
+  </div>
+</fly-centered-layout>
+```
+
+**Inputs:**
+
+- `maxWidth` - Maximum content width: `'sm'` | `'md'` | `'lg'` | `'xl'` | `'2xl'` | `'full'` (default: `'lg'`)
+- `fullHeight` - Use full viewport height and center vertically (default: `false`)
+- `padding` - Padding around content: `'none'` | `'sm'` | `'md'` | `'lg'` (default: `'md'`)
+- `background` - Background CSS classes
+
+#### SplitLayoutComponent
+
+Two-column layout with configurable split ratios. Automatically stacks on mobile.
+
+```html
+<fly-split-layout split="70-30" gap="lg" [reverseOnMobile]="false">
+  <div left>
+    <h1>Main Content</h1>
+    <!-- Primary content -->
+  </div>
+  <div right>
+    <aside>Sidebar</aside>
+    <!-- Secondary content -->
+  </div>
+</fly-split-layout>
+```
+
+**Inputs:**
+
+- `split` - Column split ratio: `'50-50'` | `'60-40'` | `'40-60'` | `'70-30'` | `'30-70'` | `'75-25'` | `'25-75'` (default: `'50-50'`)
+- `gap` - Gap between columns: `'none'` | `'sm'` | `'md'` | `'lg'` | `'xl'` (default: `'md'`)
+- `reverseOnMobile` - Show right column first on mobile (default: `false`)
+- `stackAt` - Breakpoint to stack: `'sm'` | `'md'` | `'lg'` (default: `'md'`)
+- `minHeight` - Minimum height CSS value
+
+**Content Slots:**
+
+- `[left]` - Left column content
+- `[right]` - Right column content
+
+#### StackLayoutComponent
+
+Vertically stacks children with consistent spacing. Useful for forms and sequential content.
+
+```html
+<fly-stack-layout gap="lg" [dividers]="true" align="stretch" maxWidth="md">
+  <section>Section 1</section>
+  <section>Section 2</section>
+  <section>Section 3</section>
+</fly-stack-layout>
+```
+
+**Inputs:**
+
+- `gap` - Gap between items: `'none'` | `'xs'` | `'sm'` | `'md'` | `'lg'` | `'xl'` (default: `'md'`)
+- `dividers` - Show dividers between items (default: `false`)
+- `align` - Item alignment: `'stretch'` | `'start'` | `'center'` | `'end'` (default: `'stretch'`)
+- `maxWidth` - Maximum width: `'sm'` | `'md'` | `'lg'` | `'xl'` | `'2xl'`
+
+#### PageLayoutComponent
+
+Standard page wrapper with page header (title, description, actions) and content area.
+
+```html
+<fly-page-layout
+  title="Users"
+  description="Manage your team members and their permissions."
+  maxWidth="6xl"
+  [stickyHeader]="true"
+  [showFooter]="true"
+>
+  <ng-container page-actions>
+    <fly-button variant="outline">Export</fly-button>
+    <fly-button variant="primary">Add User</fly-button>
+  </ng-container>
+
+  <ng-container page-header-content>
+    <div class="mt-4">
+      <fly-input placeholder="Search users..." />
+    </div>
+  </ng-container>
+
+  <!-- Page content -->
+  <fly-data-table [data]="users" />
+  
+  <div page-footer>
+    <p>Showing 10 of 100 users</p>
+  </div>
+</fly-page-layout>
+```
+
+**Inputs:**
+
+- `title` - Page title
+- `description` - Page description
+- `showHeader` - Always show header even without title (default: `false`)
+- `showFooter` - Show footer slot (default: `false`)
+- `maxWidth` - Maximum width: `'sm'` | `'md'` | `'lg'` | `'xl'` | `'2xl'` | `'4xl'` | `'6xl'` | `'7xl'` | `'full'` (default: `'full'`)
+- `padding` - Page padding: `'none'` | `'sm'` | `'md'` | `'lg'` (default: `'none'`)
+- `stickyHeader` - Make header sticky on scroll (default: `false`)
+
+**Content Slots:**
+
+- Default slot - Page content
+- `[page-actions]` - Action buttons in header
+- `[page-header-content]` - Additional header content below title
+- `[page-footer]` - Page footer content
 
 ---
 

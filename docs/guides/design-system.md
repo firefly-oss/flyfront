@@ -7,6 +7,7 @@ This guide covers Flyfront's design system, including design tokens, UI componen
 - [Overview](#overview)
 - [Design Tokens](#design-tokens)
 - [Using Components](#using-components)
+  - [Layout Components](#layout-components)
 - [Styling with TailwindCSS](#styling-with-tailwindcss)
 - [Theming](#theming)
 - [Accessibility](#accessibility)
@@ -295,6 +296,128 @@ import {
   </ng-container>
 </fly-app-shell>
 ```
+
+### Layout Components
+
+Flyfront provides 6 layout components for common page structures. Choose the right layout based on your page type:
+
+| Layout | Use Case |
+|--------|----------|
+| `fly-auth-layout` | Login, register, password reset pages |
+| `fly-dashboard-layout` | Admin panels, data-heavy apps with sidebar |
+| `fly-centered-layout` | Empty states, loading screens, simple centered content |
+| `fly-split-layout` | Two-column layouts (main + sidebar) |
+| `fly-stack-layout` | Forms, sequential content, vertical lists |
+| `fly-page-layout` | Standard feature pages with title and actions |
+
+#### Auth Layout
+
+For authentication pages with centered card, optional logo, and footer.
+
+```html
+<fly-auth-layout
+  logoUrl="/assets/logo.svg"
+  title="Welcome Back"
+  subtitle="Sign in to your account"
+  copyrightText="© 2026 My Company"
+>
+  <fly-card>
+    <fly-input label="Email" type="email" />
+    <fly-input label="Password" type="password" />
+    <fly-button variant="primary" [fullWidth]="true">Sign In</fly-button>
+  </fly-card>
+  
+  <div auth-footer>
+    <a routerLink="/forgot-password">Forgot password?</a>
+    <span>·</span>
+    <a routerLink="/register">Create account</a>
+  </div>
+</fly-auth-layout>
+```
+
+#### Dashboard Layout
+
+For admin interfaces with collapsible sidebar, header with breadcrumbs, and user menu.
+
+```html
+<fly-dashboard-layout
+  appName="Admin Panel"
+  [navItems]="[
+    { id: 'home', label: 'Dashboard', icon: homeIcon, active: true },
+    { id: 'users', label: 'Users', icon: usersIcon, badge: 5 },
+    { id: 'settings', label: 'Settings', icon: settingsIcon }
+  ]"
+  [breadcrumbs]="[{ label: 'Home', link: '/' }, { label: 'Users' }]"
+  userName="John Doe"
+  userAvatar="/assets/avatar.jpg"
+  (navItemClick)="navigate($event)"
+  (logout)="onLogout()"
+>
+  <router-outlet />
+</fly-dashboard-layout>
+```
+
+#### Page Layout
+
+For standard feature pages with header, actions, and content.
+
+```html
+<fly-page-layout
+  title="Team Members"
+  description="Manage your organization's team."
+  [stickyHeader]="true"
+>
+  <ng-container page-actions>
+    <fly-button variant="outline">Export</fly-button>
+    <fly-button variant="primary">Add Member</fly-button>
+  </ng-container>
+
+  <fly-data-table [data]="members" />
+</fly-page-layout>
+```
+
+#### Split Layout
+
+For two-column layouts that stack on mobile.
+
+```html
+<fly-split-layout split="70-30" gap="lg">
+  <div left>
+    <!-- Main content: 70% width on desktop -->
+  </div>
+  <div right>
+    <!-- Sidebar: 30% width on desktop -->
+  </div>
+</fly-split-layout>
+```
+
+#### Stack Layout
+
+For vertically stacked content with consistent spacing.
+
+```html
+<fly-stack-layout gap="lg" [dividers]="true">
+  <section>Step 1: Account Setup</section>
+  <section>Step 2: Preferences</section>
+  <section>Step 3: Review</section>
+</fly-stack-layout>
+```
+
+#### Centered Layout
+
+For centered content like empty states or loading screens.
+
+```html
+<fly-centered-layout [fullHeight]="true" maxWidth="md">
+  <div class="text-center">
+    <h2>No projects yet</h2>
+    <p>Create your first project to get started.</p>
+    <fly-button variant="primary">Create Project</fly-button>
+  </div>
+</fly-centered-layout>
+```
+
+For detailed API documentation on all layout components, see the [Layout Components Reference](../architecture/libraries.md#layout-components).
 
 ---
 
