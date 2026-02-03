@@ -7,6 +7,107 @@
 /* Tailwind CSS */
 @import 'tailwindcss' layer(tailwindcss);
 
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Primary palette (Blue) */
+  --color-primary-50: #e3f2fd;
+  --color-primary-100: #bbdefb;
+  --color-primary-200: #90caf9;
+  --color-primary-300: #64b5f6;
+  --color-primary-400: #42a5f5;
+  --color-primary-500: #2196f3;
+  --color-primary-600: #1e88e5;
+  --color-primary-700: #1976d2;
+  --color-primary-800: #1565c0;
+  --color-primary-900: #0d47a1;
+
+  /* Secondary palette (Pink) */
+  --color-secondary-50: #fce4ec;
+  --color-secondary-100: #f8bbd9;
+  --color-secondary-200: #f48fb1;
+  --color-secondary-300: #f06292;
+  --color-secondary-400: #ec407a;
+  --color-secondary-500: #e91e63;
+  --color-secondary-600: #d81b60;
+  --color-secondary-700: #c2185b;
+  --color-secondary-800: #ad1457;
+  --color-secondary-900: #880e4f;
+
+  /* Firefly brand (Amber) */
+  --color-firefly-50: #fef3e2;
+  --color-firefly-100: #fde4b9;
+  --color-firefly-200: #fcd38c;
+  --color-firefly-300: #fbc25f;
+  --color-firefly-400: #fab53d;
+  --color-firefly-500: #f9a825;
+  --color-firefly-600: #f59d21;
+  --color-firefly-700: #ef911b;
+  --color-firefly-800: #e98516;
+  --color-firefly-900: #df710d;
+
+  /* Success (Green) */
+  --color-success-50: #e8f5e9;
+  --color-success-100: #c8e6c9;
+  --color-success-200: #a5d6a7;
+  --color-success-300: #81c784;
+  --color-success-400: #66bb6a;
+  --color-success-500: #4caf50;
+  --color-success-600: #43a047;
+  --color-success-700: #388e3c;
+  --color-success-800: #2e7d32;
+  --color-success-900: #1b5e20;
+
+  /* Warning (Orange) */
+  --color-warning-50: #fff3e0;
+  --color-warning-100: #ffe0b2;
+  --color-warning-200: #ffcc80;
+  --color-warning-300: #ffb74d;
+  --color-warning-400: #ffa726;
+  --color-warning-500: #ff9800;
+  --color-warning-600: #fb8c00;
+  --color-warning-700: #f57c00;
+  --color-warning-800: #ef6c00;
+  --color-warning-900: #e65100;
+
+  /* Error (Red) */
+  --color-error-50: #ffebee;
+  --color-error-100: #ffcdd2;
+  --color-error-200: #ef9a9a;
+  --color-error-300: #e57373;
+  --color-error-400: #ef5350;
+  --color-error-500: #f44336;
+  --color-error-600: #e53935;
+  --color-error-700: #d32f2f;
+  --color-error-800: #c62828;
+  --color-error-900: #b71c1c;
+
+  /* Info (Blue - same as primary) */
+  --color-info-50: #e3f2fd;
+  --color-info-100: #bbdefb;
+  --color-info-200: #90caf9;
+  --color-info-300: #64b5f6;
+  --color-info-400: #42a5f5;
+  --color-info-500: #2196f3;
+  --color-info-600: #1e88e5;
+  --color-info-700: #1976d2;
+  --color-info-800: #1565c0;
+  --color-info-900: #0d47a1;
+
+  /* Neutral (Gray) */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #eeeeee;
+  --color-neutral-300: #e0e0e0;
+  --color-neutral-400: #bdbdbd;
+  --color-neutral-500: #9e9e9e;
+  --color-neutral-600: #757575;
+  --color-neutral-700: #616161;
+  --color-neutral-800: #424242;
+  --color-neutral-900: #212121;
+  --color-neutral-1000: #000000;
+}
+
 /* CSS Custom Properties (Design Tokens) */
 :root {
   /* Colors */
