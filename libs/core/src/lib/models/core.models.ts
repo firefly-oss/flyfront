@@ -351,3 +351,46 @@ export interface MenuItem {
   /** Divider after this item */
   divider?: boolean;
 }
+
+/**
+ * Encrypted payload structure
+ */
+export interface EncryptedPayload {
+  /** Base64-encoded ciphertext */
+  ciphertext: string;
+  /** Base64-encoded initialization vector */
+  iv: string;
+  /** Base64-encoded salt (for key derivation) */
+  salt?: string;
+  /** Algorithm used for encryption */
+  algorithm: string;
+}
+
+/**
+ * Secure storage item with encryption metadata
+ */
+export interface SecureStorageItem<T> extends StorageItem<T> {
+  /** Whether the item is encrypted */
+  encrypted: boolean;
+  /** Encryption metadata (only present if encrypted) */
+  encryptionMeta?: {
+    /** Algorithm used */
+    algorithm: string;
+    /** Key derivation iterations (if password-based) */
+    iterations?: number;
+  };
+}
+
+/**
+ * Secure storage options
+ */
+export interface SecureStorageOptions {
+  /** Time to live in milliseconds */
+  ttl?: number;
+  /** Storage type */
+  storage?: 'local' | 'session' | 'memory';
+  /** Version for cache invalidation */
+  version?: number;
+  /** Whether to encrypt the data (default: true) */
+  encrypt?: boolean;
+}
